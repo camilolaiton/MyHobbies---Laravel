@@ -21,6 +21,13 @@ Route::get('/info', function () {
     return view('info');
 });
 
+Route::get('/hobbies', function () {
+    return view('hobbies');
+});
+
+Route::resource('hobby', 'HobbyController');
+// Route::get('/test/{name}/{age}', 'HobbyController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
