@@ -15,7 +15,9 @@ class HobbyController extends Controller
     public function index()
     {
         $hobbies = Hobby::all();
-        dd($hobbies);
+        return view('hobby.index')->with([
+            'hobbies' => $hobbies
+        ]);
     }
 
     /**
@@ -25,7 +27,7 @@ class HobbyController extends Controller
      */
     public function create()
     {
-        //
+        return view('hobby.create');
     }
 
     /**
@@ -36,7 +38,18 @@ class HobbyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3',
+            'description' => 'required|min:5',
+        ]);
+
+        $hobby = new Hobby([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        $hobby->save();
+        return $this->index();
     }
 
     /**
